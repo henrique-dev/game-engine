@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1562773919 source:/home/henrique/Projetos/game/engine/gamebase/main.cpp
+	<glad/glad.h>
+	<GLFW/glfw3.h>
+	<iostream>
+
