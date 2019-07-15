@@ -1,6 +1,83 @@
 # depslib dependency file v1.0
-1562773919 source:/home/henrique/Projetos/game/engine/gamebase/main.cpp
+1563218272 source:/home/henrique/Projetos/game/engine/gamebase/main.cpp
 	<glad/glad.h>
 	<GLFW/glfw3.h>
 	<iostream>
+	<game.h>
+	<resource_manager.h>
+
+1563218462 source:/home/henrique/Projetos/game/engine/gamebase/src/game.cpp
+	<game.h>
+	<resource_manager.h>
+	<img/spriterenderer.h>
+
+1563207455 /home/henrique/Projetos/game/engine/gamebase/include/game.h
+	<glad/glad.h>
+	<GLFW/glfw3.h>
+
+1563218651 /home/henrique/Projetos/game/engine/gamebase/include/resource_manager.h
+	<map>
+	<string>
+	<glad/glad.h>
+	<img/texture.h>
+	<core/shader.h>
+
+1563208447 /home/henrique/Projetos/game/engine/gamebase/include/texture
+
+1563218085 source:/home/henrique/Projetos/game/engine/gamebase/src/resource_manager.cpp
+	<resource_manager.h>
+	<iostream>
+	<sstream>
+	<fstream>
+	<core/stb_image.h>
+
+1563208567 /home/henrique/Projetos/game/engine/gamebase/include/texture/texture.h
+	<glad/glad.h>
+
+1563208567 /home/henrique/Projetos/game/engine/gamebase/include/img/texture.h
+	<glad/glad.h>
+
+1563209431 source:/home/henrique/Projetos/game/engine/gamebase/src/img/texture.cpp
+	<iostream>
+	<img/texture.h>
+
+1563213861 source:/home/henrique/Projetos/game/engine/gamebase/src/core/shader.cpp
+	<core/shader.h>
+	<iostream>
+
+1563212478 /home/henrique/Projetos/game/engine/gamebase/include/core/shader.h
+	<string>
+	<glad/glad.h>
+	<glm/glm.hpp>
+	<glm/gtc/type_ptr.hpp>
+
+1563217621 source:/home/henrique/Projetos/game/engine/gamebase/src/core/stb_image.cpp
+	<core/stb_image.h>
+
+1563214376 /home/henrique/Projetos/game/engine/gamebase/include/core/stb_image.h
+	"stb_image.h"
+	<stdio.h>
+	<stdlib.h>
+	<stdarg.h>
+	<stddef.h>
+	<stdlib.h>
+	<string.h>
+	<limits.h>
+	<math.h>
+	<stdio.h>
+	<assert.h>
+	<stdint.h>
+	<emmintrin.h>
+	<intrin.h>
+	<arm_neon.h>
+
+1563217549 source:/home/henrique/Projetos/game/engine/gamebase/src/img/spriterenderer.cpp
+	<img/spriterenderer.h>
+
+1563218259 /home/henrique/Projetos/game/engine/gamebase/include/img/spriterenderer.h
+	<glad/glad.h>
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<img/texture.h>
+	<core/shader.h>
 

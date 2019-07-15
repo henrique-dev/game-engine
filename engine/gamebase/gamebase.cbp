@@ -15,16 +15,6 @@
 					<Add option="-g" />
 					<Add directory="include" />
 				</Compiler>
-				<Linker>
-					<Add option="/usr/local/src/glad.c" />
-					<Add library="glfw" />
-					<Add library="GL" />
-					<Add library="X11" />
-					<Add library="pthread" />
-					<Add library="Xrandr" />
-					<Add library="Xi" />
-					<Add library="dl" />
-				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/gamebase" prefix_auto="1" extension_auto="1" />
@@ -44,17 +34,23 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="include/Game.h" />
-		<Unit filename="include/Shader.h" />
-		<Unit filename="include/Texture.h" />
+		<Unit filename="include/core/shader.h" />
+		<Unit filename="include/core/stb_image.h" />
+		<Unit filename="include/game.h" />
+		<Unit filename="include/img/spriterenderer.h" />
+		<Unit filename="include/img/texture.h" />
+		<Unit filename="include/resource_manager.h" />
 		<Unit filename="main.cpp" />
-		<Unit filename="src/Game.cpp" />
-		<Unit filename="src/Shader.cpp" />
-		<Unit filename="src/Texture.cpp" />
+		<Unit filename="shaders/sprite.frag" />
+		<Unit filename="shaders/sprite.vs" />
+		<Unit filename="src/core/shader.cpp" />
+		<Unit filename="src/core/stb_image.cpp" />
+		<Unit filename="src/game.cpp" />
+		<Unit filename="src/img/spriterenderer.cpp" />
+		<Unit filename="src/img/texture.cpp" />
+		<Unit filename="src/resource_manager.cpp" />
 		<Extensions>
-			<envvars />
 			<code_completion />
-			<lib_finder disable_auto="1" />
 			<debugger />
 		</Extensions>
 	</Project>
