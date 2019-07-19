@@ -1,35 +1,38 @@
 # depslib dependency file v1.0
-1563218272 source:/home/henrique/Projetos/game/engine/gamebase/main.cpp
+1563467332 source:/home/henrique/Projetos/game/engine/gamebase/main.cpp
 	<glad/glad.h>
 	<GLFW/glfw3.h>
 	<iostream>
 	<game.h>
 	<resource_manager.h>
 
-1563218462 source:/home/henrique/Projetos/game/engine/gamebase/src/game.cpp
+1563473975 source:/home/henrique/Projetos/game/engine/gamebase/src/game.cpp
 	<game.h>
 	<resource_manager.h>
-	<img/spriterenderer.h>
+	<spriterenderer.h>
+	<sprite.h>
+	<iostream>
+	<vector>
 
 1563207455 /home/henrique/Projetos/game/engine/gamebase/include/game.h
 	<glad/glad.h>
 	<GLFW/glfw3.h>
 
-1563218651 /home/henrique/Projetos/game/engine/gamebase/include/resource_manager.h
+1563467323 /home/henrique/Projetos/game/engine/gamebase/include/resource_manager.h
 	<map>
 	<string>
 	<glad/glad.h>
-	<img/texture.h>
-	<core/shader.h>
+	<texture.h>
+	<shader.h>
 
 1563208447 /home/henrique/Projetos/game/engine/gamebase/include/texture
 
-1563218085 source:/home/henrique/Projetos/game/engine/gamebase/src/resource_manager.cpp
+1563467435 source:/home/henrique/Projetos/game/engine/gamebase/src/resource_manager.cpp
 	<resource_manager.h>
 	<iostream>
 	<sstream>
 	<fstream>
-	<core/stb_image.h>
+	<stb_image.h>
 
 1563208567 /home/henrique/Projetos/game/engine/gamebase/include/texture/texture.h
 	<glad/glad.h>
@@ -37,7 +40,7 @@
 1563208567 /home/henrique/Projetos/game/engine/gamebase/include/img/texture.h
 	<glad/glad.h>
 
-1563209431 source:/home/henrique/Projetos/game/engine/gamebase/src/img/texture.cpp
+1563295456 source:/home/henrique/Projetos/game/engine/gamebase/src/img/texture.cpp
 	<iostream>
 	<img/texture.h>
 
@@ -71,13 +74,115 @@
 	<intrin.h>
 	<arm_neon.h>
 
-1563217549 source:/home/henrique/Projetos/game/engine/gamebase/src/img/spriterenderer.cpp
+1563296461 source:/home/henrique/Projetos/game/engine/gamebase/src/img/spriterenderer.cpp
 	<img/spriterenderer.h>
+	<iostream>
+	<math.h>
 
-1563218259 /home/henrique/Projetos/game/engine/gamebase/include/img/spriterenderer.h
+1563294163 /home/henrique/Projetos/game/engine/gamebase/include/img/spriterenderer.h
 	<glad/glad.h>
 	<glm/glm.hpp>
 	<glm/gtc/matrix_transform.hpp>
 	<img/texture.h>
 	<core/shader.h>
+
+1563294751 source:/home/henrique/Projetos/game/engine/gamebase/src/img/sprite.cpp
+	<img/sprite.h>
+
+1563294643 /home/henrique/Projetos/game/engine/gamebase/include/img/sprite.h
+	<img/spriterenderer.h>
+
+1563467023 /home/henrique/Projetos/game/engine/gamebase/include/texture.h
+	<glad/glad.h>
+
+1563212478 /home/henrique/Projetos/game/engine/gamebase/include/shader.h
+	<string>
+	<glad/glad.h>
+	<glm/glm.hpp>
+	<glm/gtc/type_ptr.hpp>
+
+1563465972 source:/home/henrique/Projetos/game/engine/gamebase/src/entity.cpp
+	"entity.h"
+
+1563465729 /home/henrique/Projetos/game/engine/gamebase/include/entity.h
+	<vector2d.h>
+
+1563471868 /home/henrique/Projetos/game/engine/gamebase/include/spriterenderer.h
+	<glad/glad.h>
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<texture.h>
+	<shader.h>
+
+1563473831 /home/henrique/Projetos/game/engine/gamebase/include/sprite.h
+	<spriterenderer.h>
+	<vector>
+	<texture.h>
+	<resource_manager.h>
+
+1563464602 source:/home/henrique/Projetos/game/engine/gamebase/src/gameentity.cpp
+	"gameentity.h"
+
+1563466091 /home/henrique/Projetos/game/engine/gamebase/include/gameentity.h
+	<entity.h>
+	<sprite.h>
+
+1563214376 /home/henrique/Projetos/game/engine/gamebase/include/stb_image.h
+	"stb_image.h"
+	<stdio.h>
+	<stdlib.h>
+	<stdarg.h>
+	<stddef.h>
+	<stdlib.h>
+	<string.h>
+	<limits.h>
+	<math.h>
+	<stdio.h>
+	<assert.h>
+	<stdint.h>
+	<emmintrin.h>
+	<intrin.h>
+	<arm_neon.h>
+
+1563464664 source:/home/henrique/Projetos/game/engine/gamebase/src/shader.cpp
+	<shader.h>
+	<iostream>
+
+1563473704 source:/home/henrique/Projetos/game/engine/gamebase/src/sprite.cpp
+	<sprite.h>
+	<iostream>
+
+1563467156 source:/home/henrique/Projetos/game/engine/gamebase/src/spriterenderer.cpp
+	<spriterenderer.h>
+	<iostream>
+	<math.h>
+
+1563464741 source:/home/henrique/Projetos/game/engine/gamebase/src/stb_image.cpp
+	<stb_image.h>
+
+1563467278 source:/home/henrique/Projetos/game/engine/gamebase/src/texture.cpp
+	<iostream>
+	<texture.h>
+
+1563463842 source:/home/henrique/Projetos/game/engine/gamebase/src/windowentity.cpp
+	"windowentity.h"
+
+1563463842 /home/henrique/Projetos/game/engine/gamebase/include/windowentity.h
+
+1563465214 source:/home/henrique/Projetos/game/engine/gamebase/src/mathutil.cpp
+	<algorithm>
+	<mathutil.h>
+
+1563465189 /home/henrique/Projetos/game/engine/gamebase/include/mathutil.h
+	<math.h>
+
+1563465263 source:/home/henrique/Projetos/game/engine/gamebase/src/vector2d.cpp
+	<vector2d.h>
+	<mathutil.h>
+	<stdexcept>
+	<sstream>
+
+1563465249 /home/henrique/Projetos/game/engine/gamebase/include/vector2d.h
+	<iostream>
+	<mathutil.h>
 

@@ -6,22 +6,25 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include <img/texture.h>
-#include <core/shader.h>
+#include <texture.h>
+#include <shader.h>
 
 
 class SpriteRenderer
 {
 public:
     // Constructor (inits shaders/shapes)
-    SpriteRenderer(Shader &shader);
+    SpriteRenderer(Texture2D &texture, Shader &shader, glm::vec4 position);
     // Destructor
     ~SpriteRenderer();
     // Renders a defined quad textured with given sprite
-    void DrawSprite(Texture2D &texture, glm::vec2 position, glm::vec2 size = glm::vec2(10, 10), GLfloat rotate = 0.0f, glm::vec3 color = glm::vec3(1.0f));
-private:
+    void drawSprite(glm::vec2 position, glm::vec2 size = glm::vec2(10, 10), GLfloat rotate = 0.0f, glm::vec3 color = glm::vec3(1.0f));
+protected:
     // Render state
+    Texture2D texture;
     Shader shader;
+    glm::vec4 position;
+private:
     GLuint quadVAO;
     // Initializes and configures the quad's buffer and vertex attributes
     void initRenderData();
