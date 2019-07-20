@@ -11,10 +11,7 @@ class Sprite : public SpriteRenderer
         Sprite(Texture2D &texture, Shader &shader, float x, float y, float width, float height);
         virtual ~Sprite();
 
-        void draw(float x, float y, float width, float height, float degress, float r, float g, float b);
-        void printInfo();
-
-        static std::vector<Sprite*> * generateSpriteFromTexture(Texture2D& texture, int rows, int cols, int qtd);
+        void draw(float x, float y, float width, float height, float degress, bool inverted, float r, float g, float b);
 
     protected:
 

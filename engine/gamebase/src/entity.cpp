@@ -18,3 +18,48 @@ Entity::~Entity()
 {
     //dtor
 }
+
+void Entity::update(float dt, float t)
+{
+
+}
+
+void Entity::setX(float x)
+{
+    this->pos.x = x;
+}
+
+void Entity::setY(float y)
+{
+    this->pos.y = y;
+}
+
+void Entity::setWidth(float width)
+{
+    this->width.x = width;
+}
+
+void Entity::setHeight(float height)
+{
+    this->height.y = height;
+}
+
+float Entity::getX() const
+{
+    return this->pos.x;
+}
+
+float Entity::getY() const
+{
+    return this->pos.y;
+}
+
+float Entity::getWidth() const
+{
+    return this->width.x;
+}
+
+float Entity::getHeight() const
+{
+    return this->height.y;
+}

@@ -186,3 +186,164 @@
 	<iostream>
 	<mathutil.h>
 
+1563641544 source:d:\desenvolvimento\projetos\game-engine\engine\gamebase\main.cpp
+	<glad/glad.h>
+	<GLFW/glfw3.h>
+	<iostream>
+	<game.h>
+	<resource_manager.h>
+
+1563641559 d:\desenvolvimento\projetos\game-engine\engine\gamebase\include\game.h
+	<glad/glad.h>
+	<GLFW/glfw3.h>
+
+1563570941 d:\desenvolvimento\projetos\game-engine\engine\gamebase\include\resource_manager.h
+	<map>
+	<string>
+	<glad/glad.h>
+	<texture.h>
+	<shader.h>
+
+1563570941 d:\desenvolvimento\projetos\game-engine\engine\gamebase\include\texture.h
+	<glad/glad.h>
+
+1563570941 d:\desenvolvimento\projetos\game-engine\engine\gamebase\include\shader.h
+	<string>
+	<glad/glad.h>
+	<glm/glm.hpp>
+	<glm/gtc/type_ptr.hpp>
+
+1563628878 source:d:\desenvolvimento\projetos\game-engine\engine\gamebase\src\entity.cpp
+	"entity.h"
+
+1563628887 d:\desenvolvimento\projetos\game-engine\engine\gamebase\include\entity.h
+	<vector2d.h>
+
+1563570941 d:\desenvolvimento\projetos\game-engine\engine\gamebase\include\vector2d.h
+	<iostream>
+	<mathutil.h>
+
+1563571544 d:\desenvolvimento\projetos\game-engine\engine\gamebase\include\mathutil.h
+	<math.h>
+
+1563656763 source:d:\desenvolvimento\projetos\game-engine\engine\gamebase\src\game.cpp
+	<game.h>
+	<resource_manager.h>
+	<spriterenderer.h>
+	<sprite.h>
+	<iostream>
+	<vector>
+	<spriteutils.h>
+	<creature.h>
+	<tile.h>
+
+1563584853 d:\desenvolvimento\projetos\game-engine\engine\gamebase\include\spriterenderer.h
+	<glad/glad.h>
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<texture.h>
+	<shader.h>
+
+1563584894 d:\desenvolvimento\projetos\game-engine\engine\gamebase\include\sprite.h
+	<spriterenderer.h>
+	<vector>
+	<texture.h>
+	<resource_manager.h>
+
+1563656919 source:d:\desenvolvimento\projetos\game-engine\engine\gamebase\src\gameentity.cpp
+	"gameentity.h"
+
+1563656912 d:\desenvolvimento\projetos\game-engine\engine\gamebase\include\gameentity.h
+	<entity.h>
+	<sprite.h>
+	<map>
+	<spriteanimation.h>
+
+1563570941 source:d:\desenvolvimento\projetos\game-engine\engine\gamebase\src\mathutil.cpp
+	<algorithm>
+	<mathutil.h>
+
+1563570941 source:d:\desenvolvimento\projetos\game-engine\engine\gamebase\src\resource_manager.cpp
+	<resource_manager.h>
+	<iostream>
+	<sstream>
+	<fstream>
+	<stb_image.h>
+
+1563570941 d:\desenvolvimento\projetos\game-engine\engine\gamebase\include\stb_image.h
+	"stb_image.h"
+	<stdio.h>
+	<stdlib.h>
+	<stdarg.h>
+	<stddef.h>
+	<stdlib.h>
+	<string.h>
+	<limits.h>
+	<math.h>
+	<stdio.h>
+	<assert.h>
+	<stdint.h>
+	<emmintrin.h>
+	<intrin.h>
+	<arm_neon.h>
+
+1563570941 source:d:\desenvolvimento\projetos\game-engine\engine\gamebase\src\shader.cpp
+	<shader.h>
+	<iostream>
+
+1563584878 source:d:\desenvolvimento\projetos\game-engine\engine\gamebase\src\sprite.cpp
+	<sprite.h>
+	<iostream>
+
+1563637763 source:d:\desenvolvimento\projetos\game-engine\engine\gamebase\src\spriterenderer.cpp
+	<spriterenderer.h>
+	<iostream>
+	<math.h>
+
+1563570941 source:d:\desenvolvimento\projetos\game-engine\engine\gamebase\src\stb_image.cpp
+	<stb_image.h>
+
+1563570941 source:d:\desenvolvimento\projetos\game-engine\engine\gamebase\src\texture.cpp
+	<iostream>
+	<texture.h>
+
+1563570941 source:d:\desenvolvimento\projetos\game-engine\engine\gamebase\src\vector2d.cpp
+	<vector2d.h>
+	<mathutil.h>
+	<stdexcept>
+	<sstream>
+
+1563570941 source:d:\desenvolvimento\projetos\game-engine\engine\gamebase\src\windowentity.cpp
+	"windowentity.h"
+
+1563570941 d:\desenvolvimento\projetos\game-engine\engine\gamebase\include\windowentity.h
+
+1563645907 source:d:\desenvolvimento\projetos\game-engine\engine\gamebase\src\spriteutils.cpp
+	"spriteutils.h"
+
+1563645767 d:\desenvolvimento\projetos\game-engine\engine\gamebase\include\spriteutils.h
+	<vector>
+	<sprite.h>
+
+1563644718 source:d:\desenvolvimento\projetos\game-engine\engine\gamebase\src\tile.cpp
+	"tile.h"
+
+1563644693 d:\desenvolvimento\projetos\game-engine\engine\gamebase\include\tile.h
+	<gameentity.h>
+
+1563656886 source:d:\desenvolvimento\projetos\game-engine\engine\gamebase\src\creature.cpp
+	"creature.h"
+	<iostream>
+	<math.h>
+
+1563656926 d:\desenvolvimento\projetos\game-engine\engine\gamebase\include\creature.h
+	<gameentity.h>
+	<vector2d.h>
+
+1563645543 d:\desenvolvimento\projetos\game-engine\engine\gamebase\include\spriteanimation.h
+	<sprite.h>
+	<vector>
+
+1563645573 source:d:\desenvolvimento\projetos\game-engine\engine\gamebase\src\spriteanimation.cpp
+	"spriteanimation.h"
+

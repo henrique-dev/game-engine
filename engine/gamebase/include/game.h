@@ -15,7 +15,8 @@ class Game
 {
     public:
         GameState State;
-        GLboolean Keys[1024];
+        GLchar Keys[1024][1];
+        int action;
         GLuint Width, Height;
 
         Game(GLuint width, GLuint height);
@@ -23,9 +24,9 @@ class Game
 
         void Init();
 
-        void ProcessInput(GLfloat dt);
-        void Update(GLfloat dt);
-        void Render();
+        void processInput(GLfloat dt);
+        void update(GLfloat dt, GLfloat t);
+        void render();
 };
 
 #endif // GAME_H

@@ -16,7 +16,7 @@ SpriteRenderer::~SpriteRenderer()
     glDeleteVertexArrays(1, &this->quadVAO);
 }
 
-void SpriteRenderer::drawSprite(glm::vec2 position, glm::vec2 size, GLfloat rotate, glm::vec3 color)
+void SpriteRenderer::drawSprite(glm::vec2 position, glm::vec2 size, GLfloat rotate, bool inverted, glm::vec3 color)
 {
     // Prepare transformations
     this->shader.Use();
@@ -38,7 +38,8 @@ void SpriteRenderer::drawSprite(glm::vec2 position, glm::vec2 size, GLfloat rota
     glActiveTexture(GL_TEXTURE0);
     this->texture.bind();
 
-    glBindVertexArray(this->quadVAO);
+    if (inverted) glBindVertexArray(this->quadVAOi);
+    else glBindVertexArray(this->quadVAO);
     glDrawArrays(GL_TRIANGLES, 0, 6);
     glBindVertexArray(0);
 }
@@ -62,12 +63,6 @@ void SpriteRenderer::initRenderData()
     float bottom_right_x = ((float)this->position.x + (float)this->position.z) * perW;
     float bottom_right_y = 1 - ((float)this->position.y + (float)this->position.w) * perH;
 
-    //std::cout << "(" << top_left_x << " , " << top_left_y << ") -------------- ";
-    //std::cout << "(" << top_right_x << " , " << top_right_y << ")" << std::endl << std::endl;
-    //std::cout << "(" << bottom_right_x << " , " << bottom_right_y << ") -------------- ";
-    //std::cout << "(" << bottom_left_x << " , " << bottom_left_y << std::endl;
-
-
     GLfloat vertices[] = {
         // Pos      // Tex
         0.0f, 1.0f, top_left_x, top_left_y,          // TOP LEFT
@@ -86,6 +81,30 @@ void SpriteRenderer::initRenderData()
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
     glBindVertexArray(this->quadVAO);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid*)0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
+
+    // INVERTED
+    GLfloat verticesi[] = {
+        // Pos      // Tex
+        0.0f, 1.0f, top_right_x, top_right_y,        // TOP RIGHT
+        1.0f, 0.0f, bottom_left_x, bottom_left_y,    // BOTTOM LEFT
+        0.0f, 0.0f, bottom_right_x, bottom_right_y,  // BOTTOM RIGHT
+
+        0.0f, 1.0f, top_right_x, top_right_y,        // TOP RIGHT
+        1.0f, 1.0f, top_left_x, top_left_y,          // TOP LEFT
+        1.0f, 0.0f, bottom_left_x, bottom_left_y,    // BOTTOM LEFT
+    };
+
+    glGenVertexArrays(1, &this->quadVAOi);
+    glGenBuffers(1, &VBO);
+
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(verticesi), verticesi, GL_STATIC_DRAW);
+
+    glBindVertexArray(this->quadVAOi);
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid*)0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
