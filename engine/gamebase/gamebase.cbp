@@ -34,6 +34,9 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="include/camera2d.h" />
+		<Unit filename="include/collisionbox.h" />
+		<Unit filename="include/creature.h" />
 		<Unit filename="include/entity.h" />
 		<Unit filename="include/game.h" />
 		<Unit filename="include/gameentity.h" />
@@ -41,14 +44,22 @@
 		<Unit filename="include/resource_manager.h" />
 		<Unit filename="include/shader.h" />
 		<Unit filename="include/sprite.h" />
+		<Unit filename="include/spriteanimation.h" />
 		<Unit filename="include/spriterenderer.h" />
+		<Unit filename="include/spriteutils.h" />
 		<Unit filename="include/stb_image.h" />
 		<Unit filename="include/texture.h" />
+		<Unit filename="include/tile.h" />
 		<Unit filename="include/vector2d.h" />
 		<Unit filename="include/windowentity.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="shaders/primitive.frag" />
+		<Unit filename="shaders/primitive.vs" />
 		<Unit filename="shaders/sprite.frag" />
 		<Unit filename="shaders/sprite.vs" />
+		<Unit filename="src/camera2d.cpp" />
+		<Unit filename="src/collisionbox.cpp" />
+		<Unit filename="src/creature.cpp" />
 		<Unit filename="src/entity.cpp" />
 		<Unit filename="src/game.cpp" />
 		<Unit filename="src/gameentity.cpp" />
@@ -56,14 +67,18 @@
 		<Unit filename="src/resource_manager.cpp" />
 		<Unit filename="src/shader.cpp" />
 		<Unit filename="src/sprite.cpp" />
+		<Unit filename="src/spriteanimation.cpp" />
 		<Unit filename="src/spriterenderer.cpp" />
+		<Unit filename="src/spriteutils.cpp" />
 		<Unit filename="src/stb_image.cpp" />
 		<Unit filename="src/texture.cpp" />
+		<Unit filename="src/tile.cpp" />
 		<Unit filename="src/vector2d.cpp" />
 		<Unit filename="src/windowentity.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />
+			<envvars />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

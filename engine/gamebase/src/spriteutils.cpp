@@ -10,7 +10,7 @@ SpriteUtils::~SpriteUtils()
     //dtor
 }
 
-std::vector<Sprite*> * SpriteUtils::generateSpriteFromTexture(Texture2D& texture, int rows, int cols, int offset, int qtd)
+std::vector<Sprite*> * SpriteUtils::generateSpriteFromTexture(Shader& shader, Texture2D& texture, int rows, int cols, int offset, int qtd)
 {
     std::vector<Sprite*> * sprites = new std::vector<Sprite*>();
     float width = texture.width / cols;
@@ -24,7 +24,7 @@ std::vector<Sprite*> * SpriteUtils::generateSpriteFromTexture(Texture2D& texture
             c++;
             float posX = j * width;
             float posY = i * height;
-            if (startCollect) sprites->push_back(new Sprite(texture, ResourceManager::getShader("sprite"), posX, posY, width, height));
+            if (startCollect) sprites->push_back(new Sprite(texture, shader, posX, posY, width, height));
             if (c >= qtd)
                 return sprites;
             index++;

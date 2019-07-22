@@ -7,19 +7,16 @@
 #include <spriteutils.h>
 #include <creature.h>
 #include <tile.h>
+#include <camera2d.h>
 
 // Game-related State data
 std::vector<Sprite*> * sprites;
 std::vector<Creature*> * creatures;
 std::vector<Tile*> * tiles;
-
-int contador = 0;
-int maxx = 0;
-int step = 0;
-float cameraPos = 300;
+Camera2D * camera;
 
 Game::Game(GLuint width, GLuint height)
-	: State(GAME_ACTIVE), Keys(), Width(width), Height(height)
+	: State(GAME_ACTIVE), Keys(), width(width), height(height)
 {
 
 }
@@ -32,46 +29,56 @@ Game::~Game()
 void Game::Init()
 {
     // Load shaders
+    ResourceManager::loadShader("shaders/primitive.vs", "shaders/primitive.frag", nullptr, "primitive");
     ResourceManager::loadShader("shaders/sprite.vs", "shaders/sprite.frag", nullptr, "sprite");
     // Configure shaders
-    glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(this->Width), static_cast<GLfloat>(this->Height), 0.0f, -1.0f, 1.0f);
+    glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(this->width), static_cast<GLfloat>(this->height), 0.0f, -1.0f, 1.0f);
 
     ResourceManager::getShader("sprite").Use().SetInteger("image", 0);
     ResourceManager::getShader("sprite").SetMatrix4("projection", projection);
 
-    glm::mat4 view = glm::lookAt(glm::vec3(0,0,0), glm::vec3(0,0,-1), glm::vec3(0,1,0));
-    view = glm::translate(view, glm::vec3( 300 ,0,0));
-    ResourceManager::getShader("sprite").SetMatrix4("view", view);
-    //view = glm::translate(view, glm::vec3(-5,0,0));
+    glm::mat4 projection2 = glm::ortho(0.0f, static_cast<GLfloat>(this->width), static_cast<GLfloat>(this->height), 0.0f, -1.0f, 1.0f);
+
+    ResourceManager::getShader("primitive").Use().SetInteger("image2", 1);
+    ResourceManager::getShader("primitive").SetMatrix4("projection2", projection2);
 
     // Load textures
     ResourceManager::loadTexture("textures/woman_run_cicles.png", GL_TRUE, "running");
     ResourceManager::loadTexture("textures/woman_run_arms_cicles.png", GL_TRUE, "running-arm");
     ResourceManager::loadTexture("textures/woman_character_idle.png", GL_TRUE, "idle");
     ResourceManager::loadTexture("textures/woman_character_jump.png", GL_TRUE, "jumping");
+    ResourceManager::loadTexture("textures/woman_character_fall.png", GL_TRUE, "falling");
 
     ResourceManager::loadTexture("textures/tiles.png", GL_TRUE, "tiles");
     // Set render-specific controls
     creatures = new std::vector<Creature*>;
 
-    Creature * creature = new Creature(0, -400, 400, 300, "idle");
+    camera = new Camera2D(0, 0, 0, 0, 0, 0, ResourceManager::getShader("sprite"));
+
+    Shader spriteShader = ResourceManager::getShader("sprite");
+
+    Creature * creature = new Creature(300, -400, 200, 300, "idle");
     SpriteAnimation * sa;
 
     sa = new SpriteAnimation(
-                             SpriteUtils::generateSpriteFromTexture(ResourceManager::getTexture("running"), 1, 10, 0, 10),
-                             SpriteUtils::generateSpriteFromTexture(ResourceManager::getTexture("running-arm"), 1, 10, 0, 10), 4);
+                             SpriteUtils::generateSpriteFromTexture(spriteShader, ResourceManager::getTexture("running"), 1, 10, 0, 10),
+                             SpriteUtils::generateSpriteFromTexture(spriteShader, ResourceManager::getTexture("running-arm"), 1, 10, 0, 10), 4);
     creature->setSpritesAnimation("running", sa);
 
-    sa = new SpriteAnimation(SpriteUtils::generateSpriteFromTexture(ResourceManager::getTexture("idle"), 1, 3, 0, 3), 10);
+    sa = new SpriteAnimation(SpriteUtils::generateSpriteFromTexture(spriteShader, ResourceManager::getTexture("idle"), 1, 3, 0, 3), 10);
     creature->setSpritesAnimation("idle", sa);
 
-    sa = new SpriteAnimation(SpriteUtils::generateSpriteFromTexture(ResourceManager::getTexture("jumping"), 1, 1, 0, 1), 1);
+    sa = new SpriteAnimation(SpriteUtils::generateSpriteFromTexture(spriteShader, ResourceManager::getTexture("jumping"), 1, 1, 0, 1), 1);
     creature->setSpritesAnimation("jumping", sa);
+
+    sa = new SpriteAnimation(SpriteUtils::generateSpriteFromTexture(spriteShader, ResourceManager::getTexture("falling"), 1, 1, 0, 1), 1);
+    creature->setSpritesAnimation("falling", sa);
+
+    creature->setCollisionBox(CollisionBox(0, 0, 80, 200));
 
     creatures->push_back(creature);
 
-    sa = new SpriteAnimation(SpriteUtils::generateSpriteFromTexture(ResourceManager::getTexture("tiles"), 1, 1, 0, 1), 10);
-    std::cout << sa->getSprites()->size();
+    sa = new SpriteAnimation(SpriteUtils::generateSpriteFromTexture(spriteShader, ResourceManager::getTexture("tiles"), 1, 1, 0, 1), 10);
     tiles = new std::vector<Tile*>;
     for (int i=0; i<10; i++)
     {
@@ -93,6 +100,7 @@ void Game::update(GLfloat dt, GLfloat t)
         }
         c->update(dt, t);
     }
+
     for (Tile * tile : *tiles)
     {
         tile->update(dt, t);
@@ -107,11 +115,8 @@ void Game::processInput(GLfloat dt)
         for (Creature * c : *creatures)
         {
             c->move(5, 0);
-            cameraPos -= 5;
-            if (c->getCurrentState() != JUMPING) c->setCurrentState(RUNNING);
-            glm::mat4 view = glm::lookAt(glm::vec3(0,0,0), glm::vec3(0,0,-1), glm::vec3(0,1,0));
-            view = glm::translate(view, glm::vec3( cameraPos ,0,0));
-            ResourceManager::getShader("sprite").SetMatrix4("view", view);
+            camera->move(-5, 0);
+            if (c->getCurrentState() != JUMPING && c->getCurrentState() != FALLING) c->setCurrentState(RUNNING);
         }
     }
     else if ((int)this->Keys[GLFW_KEY_A][0] == GLFW_PRESS || (int)this->Keys[GLFW_KEY_A][0] == GLFW_REPEAT)
@@ -119,11 +124,8 @@ void Game::processInput(GLfloat dt)
         for (Creature * c : *creatures)
         {
             c->move(-5, 0);
-            cameraPos += 5;
-            if (c->getCurrentState() != JUMPING) c->setCurrentState(RUNNING);
-            glm::mat4 view = glm::lookAt(glm::vec3(0,0,0), glm::vec3(0,0,-1), glm::vec3(0,1,0));
-            view = glm::translate(view, glm::vec3( cameraPos ,0,0));
-            ResourceManager::getShader("sprite").SetMatrix4("view", view);
+            camera->move(5, 0);
+            if (c->getCurrentState() != JUMPING && c->getCurrentState() != FALLING) c->setCurrentState(RUNNING);
         }
     }
     else if ((int)this->Keys[GLFW_KEY_SPACE][0] == GLFW_RELEASE)
@@ -144,17 +146,6 @@ void Game::processInput(GLfloat dt)
             }
         }
     }
-
-    float cameraSpeed = 2.5 * dt;
-    if ((int)this->Keys[GLFW_KEY_RIGHT][0] == GLFW_PRESS || (int)this->Keys[GLFW_KEY_RIGHT][0] == GLFW_REPEAT)
-    {
-        //cameraPos += cameraSpeed * cameraRight;
-    }
-
-    if ((int)this->Keys[GLFW_KEY_LEFT][0] == GLFW_PRESS || (int)this->Keys[GLFW_KEY_LEFT][0] == GLFW_REPEAT)
-    {
-        //cameraPos += cameraSpeed * cameraLeft;
-    }
 }
 
 void Game::render()
@@ -164,6 +155,7 @@ void Game::render()
     {
         c->draw();
     }
+
     for (Tile * t : *tiles)
     {
         t->draw();

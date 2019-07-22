@@ -17,7 +17,7 @@ class Game
         GameState State;
         GLchar Keys[1024][1];
         int action;
-        GLuint Width, Height;
+        GLuint width, height;
 
         Game(GLuint width, GLuint height);
         ~Game();

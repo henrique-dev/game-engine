@@ -11,9 +11,9 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
 // The Width of the screen
-const GLuint SCREEN_WIDTH = 800;
+const GLuint SCREEN_WIDTH = 1600;
 // The height of the screen
-const GLuint SCREEN_HEIGHT = 600;
+const GLuint SCREEN_HEIGHT = 900;
 
 Game gamebase(SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
         return -1;
     }
     glfwMakeContextCurrent(window);
-    //glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
@@ -78,6 +78,19 @@ int main(int argc, char *argv[])
         // Render
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
+
+        /*
+        // now when we draw the triangle we first use the vertex and orange fragment shader from the first program
+        glUseProgram(shaderProgramOrange);
+        // draw the first triangle using the data from our first VAO
+        glBindVertexArray(VAOs[0]);
+        glDrawArrays(GL_TRIANGLES, 0, 3);	// this call should output an orange triangle
+        // then we draw the second triangle using the data from the second VAO
+        // when we draw the second triangle we want to use a different shader program so we switch to the shader program with our yellow fragment shader.
+        glUseProgram(shaderProgramYellow);
+        glBindVertexArray(VAOs[1]);
+        glDrawArrays(GL_TRIANGLES, 0, 3);	// this call should output a yellow triangle*/
+
         gamebase.render();
 
         glfwSwapBuffers(window);

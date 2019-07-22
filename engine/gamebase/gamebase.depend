@@ -186,14 +186,14 @@
 	<iostream>
 	<mathutil.h>
 
-1563641544 source:d:\desenvolvimento\projetos\game-engine\engine\gamebase\main.cpp
+1563747289 source:d:\desenvolvimento\projetos\game-engine\engine\gamebase\main.cpp
 	<glad/glad.h>
 	<GLFW/glfw3.h>
 	<iostream>
 	<game.h>
 	<resource_manager.h>
 
-1563641559 d:\desenvolvimento\projetos\game-engine\engine\gamebase\include\game.h
+1563747339 d:\desenvolvimento\projetos\game-engine\engine\gamebase\include\game.h
 	<glad/glad.h>
 	<GLFW/glfw3.h>
 
@@ -226,7 +226,7 @@
 1563571544 d:\desenvolvimento\projetos\game-engine\engine\gamebase\include\mathutil.h
 	<math.h>
 
-1563656763 source:d:\desenvolvimento\projetos\game-engine\engine\gamebase\src\game.cpp
+1563764591 source:d:\desenvolvimento\projetos\game-engine\engine\gamebase\src\game.cpp
 	<game.h>
 	<resource_manager.h>
 	<spriterenderer.h>
@@ -236,8 +236,9 @@
 	<spriteutils.h>
 	<creature.h>
 	<tile.h>
+	<camera2d.h>
 
-1563584853 d:\desenvolvimento\projetos\game-engine\engine\gamebase\include\spriterenderer.h
+1563720067 d:\desenvolvimento\projetos\game-engine\engine\gamebase\include\spriterenderer.h
 	<glad/glad.h>
 	<glm/glm.hpp>
 	<glm/gtc/matrix_transform.hpp>
@@ -295,7 +296,7 @@
 	<sprite.h>
 	<iostream>
 
-1563637763 source:d:\desenvolvimento\projetos\game-engine\engine\gamebase\src\spriterenderer.cpp
+1563717624 source:d:\desenvolvimento\projetos\game-engine\engine\gamebase\src\spriterenderer.cpp
 	<spriterenderer.h>
 	<iostream>
 	<math.h>
@@ -318,12 +319,13 @@
 
 1563570941 d:\desenvolvimento\projetos\game-engine\engine\gamebase\include\windowentity.h
 
-1563645907 source:d:\desenvolvimento\projetos\game-engine\engine\gamebase\src\spriteutils.cpp
+1563720132 source:d:\desenvolvimento\projetos\game-engine\engine\gamebase\src\spriteutils.cpp
 	"spriteutils.h"
 
-1563645767 d:\desenvolvimento\projetos\game-engine\engine\gamebase\include\spriteutils.h
+1563720102 d:\desenvolvimento\projetos\game-engine\engine\gamebase\include\spriteutils.h
 	<vector>
 	<sprite.h>
+	<shader.h>
 
 1563644718 source:d:\desenvolvimento\projetos\game-engine\engine\gamebase\src\tile.cpp
 	"tile.h"
@@ -331,14 +333,15 @@
 1563644693 d:\desenvolvimento\projetos\game-engine\engine\gamebase\include\tile.h
 	<gameentity.h>
 
-1563656886 source:d:\desenvolvimento\projetos\game-engine\engine\gamebase\src\creature.cpp
+1563764445 source:d:\desenvolvimento\projetos\game-engine\engine\gamebase\src\creature.cpp
 	"creature.h"
 	<iostream>
 	<math.h>
 
-1563656926 d:\desenvolvimento\projetos\game-engine\engine\gamebase\include\creature.h
+1563715859 d:\desenvolvimento\projetos\game-engine\engine\gamebase\include\creature.h
 	<gameentity.h>
 	<vector2d.h>
+	<collisionbox.h>
 
 1563645543 d:\desenvolvimento\projetos\game-engine\engine\gamebase\include\spriteanimation.h
 	<sprite.h>
@@ -346,4 +349,21 @@
 
 1563645573 source:d:\desenvolvimento\projetos\game-engine\engine\gamebase\src\spriteanimation.cpp
 	"spriteanimation.h"
+
+1563749896 source:d:\desenvolvimento\projetos\game-engine\engine\gamebase\src\camera2d.cpp
+	"camera2d.h"
+	<resource_manager.h>
+
+1563710948 d:\desenvolvimento\projetos\game-engine\engine\gamebase\include\camera2d.h
+	<shader.h>
+	<entity.h>
+	<shader.h>
+
+1563764534 source:d:\desenvolvimento\projetos\game-engine\engine\gamebase\src\collisionbox.cpp
+	"collisionbox.h"
+	<iostream>
+	<resource_manager.h>
+
+1563748712 d:\desenvolvimento\projetos\game-engine\engine\gamebase\include\collisionbox.h
+	<shader.h>
 

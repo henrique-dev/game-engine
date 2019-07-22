@@ -2,6 +2,7 @@
 #define CREATURE_H
 #include <gameentity.h>
 #include <vector2d.h>
+#include <collisionbox.h>
 
 enum CreatureState {
     RUNNING,
@@ -26,6 +27,8 @@ class Creature : public GameEntity
         void setCurrentState(CreatureState state);
         CreatureState getCurrentState() const;
 
+        void setCollisionBox(CollisionBox collisionBox);
+
     protected:
 
     private:
@@ -33,6 +36,7 @@ class Creature : public GameEntity
         float jumpTime = 0;
         Vector2D speed = Vector2D(0,0);
         float gravity = 15.0f;
+        CollisionBox collisionBox;
 
 };
 

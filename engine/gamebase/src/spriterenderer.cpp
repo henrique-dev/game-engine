@@ -16,6 +16,11 @@ SpriteRenderer::~SpriteRenderer()
     glDeleteVertexArrays(1, &this->quadVAO);
 }
 
+Shader &SpriteRenderer::getShader()
+{
+    return this->shader;
+}
+
 void SpriteRenderer::drawSprite(glm::vec2 position, glm::vec2 size, GLfloat rotate, bool inverted, glm::vec3 color)
 {
     // Prepare transformations

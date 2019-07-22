@@ -2,6 +2,7 @@
 #define SPRITEUTILS_H
 #include <vector>
 #include <sprite.h>
+#include <shader.h>
 
 class SpriteUtils
 {
@@ -9,7 +10,7 @@ class SpriteUtils
         SpriteUtils();
         virtual ~SpriteUtils();
 
-        static std::vector<Sprite*> * generateSpriteFromTexture(Texture2D& texture, int rows, int cols, int offset, int qtd);
+        static std::vector<Sprite*> * generateSpriteFromTexture(Shader& shader, Texture2D& texture, int rows, int cols, int offset, int qtd);
 
     protected:
 

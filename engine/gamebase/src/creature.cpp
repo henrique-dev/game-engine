@@ -2,7 +2,7 @@
 #include <iostream>
 #include <math.h>
 
-Creature::Creature(float x, float y, float width, float height, std::string firstSpriteAnimation) : GameEntity(x, y, width, height)
+Creature::Creature(float x, float y, float width, float height, std::string firstSpriteAnimation) : GameEntity(x, y, width, height), collisionBox(CollisionBox(0,0,0,0))
 {
     this->currentSpriteAnimation = firstSpriteAnimation;
 }
@@ -21,8 +21,15 @@ void Creature::update(float dt, float t)
         this->pos.y += (this->speed.y * tempo) + (15 * (float)pow(tempo, 2)) / 2.0f;
         this->speed.y += 15 * tempo;
         this->speed.y = (this->speed.y > 10.0f) ? 10.0f : this->speed.y;
+        if (this->speed.y > 0)
+            this->setCurrentState(FALLING);
     }
     this->getCurrentSpriteAnimation()->animate();
+
+    this->collisionBox.set(this->pos.x, this->pos.y);
+    //this->collisionBox.set(400, 300);
+    //std::cout << this->pos.x << " - " << this->collisionBox.getX() << std::endl;
+
 }
 
 void Creature::invert(bool invert)
@@ -32,6 +39,7 @@ void Creature::invert(bool invert)
 
 void Creature::draw()
 {
+    this->collisionBox.draw();
     this->getCurrentSpriteAnimation()->draw(getX(), getY(), getWidth(), getHeight(), 0.0f, this->invertSprite, 1.0f, 1.0f, 1.0f);
 }
 
@@ -84,4 +92,11 @@ void Creature::setCurrentState(CreatureState state)
 CreatureState Creature::getCurrentState() const
 {
     return this->currentState;
+}
+
+void Creature::setCollisionBox(CollisionBox collisionBox)
+{
+    this->collisionBox = collisionBox;
+    this->collisionBox.init(ResourceManager::getShader("primitive"));
+
 }
