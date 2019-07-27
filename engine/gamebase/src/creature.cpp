@@ -2,7 +2,7 @@
 #include <iostream>
 #include <math.h>
 
-Creature::Creature(float x, float y, float width, float height, std::string firstSpriteAnimation) : GameEntity(x, y, width, height), collisionBox(CollisionBox(0,0,0,0))
+Creature::Creature(float x, float y, float width, float height, std::string firstSpriteAnimation) : GameEntity(x, y, width, height)
 {
     this->currentSpriteAnimation = firstSpriteAnimation;
 }
@@ -98,5 +98,4 @@ void Creature::setCollisionBox(CollisionBox collisionBox)
 {
     this->collisionBox = collisionBox;
     this->collisionBox.init(ResourceManager::getShader("primitive"));
-
 }

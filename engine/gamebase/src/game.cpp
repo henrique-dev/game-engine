@@ -83,6 +83,7 @@ void Game::Init()
     for (int i=0; i<10; i++)
     {
         Tile * tile = new Tile(i * 100, 520, 100, 100, "tiles");
+        tile->setCollisionBox(CollisionBox(0, 0, 100, 100));
         tile->setSpritesAnimation("tiles", sa);
         tiles->push_back(tile);
     }

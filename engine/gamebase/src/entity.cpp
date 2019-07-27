@@ -1,13 +1,13 @@
 #include "entity.h"
 
-Entity::Entity(Entity& entity)
+Entity::Entity(Entity& entity) : collisionBox(CollisionBox(0,0,0,0))
 {
     this->pos = Vector2D(entity.pos.x, entity.pos.y);
     this->width = Vector2D(entity.width);
     this->height = Vector2D(entity.height);
 }
 
-Entity::Entity(float x, float y, float width, float height)
+Entity::Entity(float x, float y, float width, float height) : collisionBox(CollisionBox(0,0,0,0))
 {
     this->pos = Vector2D(x, y);
     this->width = Vector2D(width, 0);
@@ -62,4 +62,10 @@ float Entity::getWidth() const
 float Entity::getHeight() const
 {
     return this->height.y;
+}
+
+void Entity::setCollisionBox(CollisionBox collisionBox)
+{
+    this->collisionBox = collisionBox;
+    this->collisionBox.init(ResourceManager::getShader("primitive"));
 }

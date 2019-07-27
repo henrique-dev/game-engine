@@ -1,6 +1,8 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 #include <vector2d.h>
+#include <collisionbox.h>
+#include <resource_manager.h>
 
 using namespace math;
 
@@ -23,8 +25,11 @@ class Entity
 
         virtual void update(float dt, float t);
 
+        virtual void setCollisionBox(CollisionBox collisionBox);
+
     protected:
         Vector2D pos, width, height;
+        CollisionBox collisionBox;
     private:
 
 };

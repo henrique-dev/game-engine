@@ -6,6 +6,8 @@
 	<game.h>
 	<resource_manager.h>
 
+1563764534 manager.h>
+
 1563473975 source:/home/henrique/Projetos/game/engine/gamebase/src/game.cpp
 	<game.h>
 	<resource_manager.h>
@@ -14,9 +16,13 @@
 	<iostream>
 	<vector>
 
+1563748712 
+
 1563207455 /home/henrique/Projetos/game/engine/gamebase/include/game.h
 	<glad/glad.h>
 	<GLFW/glfw3.h>
+
+1563747339 3.h>
 
 1563467323 /home/henrique/Projetos/game/engine/gamebase/include/resource_manager.h
 	<map>
@@ -34,6 +40,8 @@
 	<fstream>
 	<stb_image.h>
 
+1563570941 .h>
+
 1563208567 /home/henrique/Projetos/game/engine/gamebase/include/texture/texture.h
 	<glad/glad.h>
 
@@ -43,6 +51,8 @@
 1563295456 source:/home/henrique/Projetos/game/engine/gamebase/src/img/texture.cpp
 	<iostream>
 	<img/texture.h>
+
+1563295456 re.h>
 
 1563213861 source:/home/henrique/Projetos/game/engine/gamebase/src/core/shader.cpp
 	<core/shader.h>
@@ -54,8 +64,12 @@
 	<glm/glm.hpp>
 	<glm/gtc/type_ptr.hpp>
 
+1563570941 ype_ptr.hpp>
+
 1563217621 source:/home/henrique/Projetos/game/engine/gamebase/src/core/stb_image.cpp
 	<core/stb_image.h>
+
+1563217621 image.h>
 
 1563214376 /home/henrique/Projetos/game/engine/gamebase/include/core/stb_image.h
 	"stb_image.h"
@@ -74,6 +88,8 @@
 	<intrin.h>
 	<arm_neon.h>
 
+1563570941 h>
+
 1563296461 source:/home/henrique/Projetos/game/engine/gamebase/src/img/spriterenderer.cpp
 	<img/spriterenderer.h>
 	<iostream>
@@ -86,11 +102,17 @@
 	<img/texture.h>
 	<core/shader.h>
 
+1563294163 er.h>
+
 1563294751 source:/home/henrique/Projetos/game/engine/gamebase/src/img/sprite.cpp
 	<img/sprite.h>
 
+1563294751 e.h>
+
 1563294643 /home/henrique/Projetos/game/engine/gamebase/include/img/sprite.h
 	<img/spriterenderer.h>
+
+1563294643 erenderer.h>
 
 1563467023 /home/henrique/Projetos/game/engine/gamebase/include/texture.h
 	<glad/glad.h>
@@ -122,6 +144,8 @@
 
 1563464602 source:/home/henrique/Projetos/game/engine/gamebase/src/gameentity.cpp
 	"gameentity.h"
+
+1563656919 y.h"
 
 1563466091 /home/henrique/Projetos/game/engine/gamebase/include/gameentity.h
 	<entity.h>
@@ -164,8 +188,12 @@
 	<iostream>
 	<texture.h>
 
+1563570941 >
+
 1563463842 source:/home/henrique/Projetos/game/engine/gamebase/src/windowentity.cpp
 	"windowentity.h"
+
+1563570941 ity.h"
 
 1563463842 /home/henrique/Projetos/game/engine/gamebase/include/windowentity.h
 
@@ -260,6 +288,8 @@
 	<map>
 	<spriteanimation.h>
 
+1563656912 mation.h>
+
 1563570941 source:d:\desenvolvimento\projetos\game-engine\engine\gamebase\src\mathutil.cpp
 	<algorithm>
 	<mathutil.h>
@@ -322,6 +352,8 @@
 1563720132 source:d:\desenvolvimento\projetos\game-engine\engine\gamebase\src\spriteutils.cpp
 	"spriteutils.h"
 
+1563720132 ls.h"
+
 1563720102 d:\desenvolvimento\projetos\game-engine\engine\gamebase\include\spriteutils.h
 	<vector>
 	<sprite.h>
@@ -333,6 +365,8 @@
 1563644693 d:\desenvolvimento\projetos\game-engine\engine\gamebase\include\tile.h
 	<gameentity.h>
 
+1563644693 y.h>
+
 1563764445 source:d:\desenvolvimento\projetos\game-engine\engine\gamebase\src\creature.cpp
 	"creature.h"
 	<iostream>
@@ -343,12 +377,16 @@
 	<vector2d.h>
 	<collisionbox.h>
 
+1563715859 box.h>
+
 1563645543 d:\desenvolvimento\projetos\game-engine\engine\gamebase\include\spriteanimation.h
 	<sprite.h>
 	<vector>
 
 1563645573 source:d:\desenvolvimento\projetos\game-engine\engine\gamebase\src\spriteanimation.cpp
 	"spriteanimation.h"
+
+1563645573 mation.h"
 
 1563749896 source:d:\desenvolvimento\projetos\game-engine\engine\gamebase\src\camera2d.cpp
 	"camera2d.h"
@@ -366,4 +404,187 @@
 
 1563748712 d:\desenvolvimento\projetos\game-engine\engine\gamebase\include\collisionbox.h
 	<shader.h>
+
+1563797576 source:/home/henrique/Projetos/game/engine/gamebase/main.cpp
+	<glad/glad.h>
+	<GLFW/glfw3.h>
+	<iostream>
+	<game.h>
+	<resource_manager.h>
+
+1563797576 /home/henrique/Projetos/game/engine/gamebase/include/game.h
+	<glad/glad.h>
+	<GLFW/glfw3.h>
+
+1563467323 /home/henrique/Projetos/game/engine/gamebase/include/resource_manager.h
+	<map>
+	<string>
+	<glad/glad.h>
+	<texture.h>
+	<shader.h>
+
+1563467023 /home/henrique/Projetos/game/engine/gamebase/include/texture.h
+	<glad/glad.h>
+
+1563212478 /home/henrique/Projetos/game/engine/gamebase/include/shader.h
+	<string>
+	<glad/glad.h>
+	<glm/glm.hpp>
+	<glm/gtc/type_ptr.hpp>
+
+1563797576 source:/home/henrique/Projetos/game/engine/gamebase/src/camera2d.cpp
+	"camera2d.h"
+	<resource_manager.h>
+
+1563797576 /home/henrique/Projetos/game/engine/gamebase/include/camera2d.h
+	<shader.h>
+	<entity.h>
+	<shader.h>
+
+1563808586 /home/henrique/Projetos/game/engine/gamebase/include/entity.h
+	<vector2d.h>
+	<collisionbox.h>
+	<resource_manager.h>
+
+1563465249 /home/henrique/Projetos/game/engine/gamebase/include/vector2d.h
+	<iostream>
+	<mathutil.h>
+
+1563465189 /home/henrique/Projetos/game/engine/gamebase/include/mathutil.h
+	<math.h>
+
+1563808939 source:/home/henrique/Projetos/game/engine/gamebase/src/collisionbox.cpp
+	"collisionbox.h"
+	<iostream>
+	<resource_manager.h>
+
+1563797576 /home/henrique/Projetos/game/engine/gamebase/include/collisionbox.h
+	<shader.h>
+
+1563808721 source:/home/henrique/Projetos/game/engine/gamebase/src/game.cpp
+	<game.h>
+	<resource_manager.h>
+	<spriterenderer.h>
+	<sprite.h>
+	<iostream>
+	<vector>
+	<spriteutils.h>
+	<creature.h>
+	<tile.h>
+	<camera2d.h>
+
+1563797576 /home/henrique/Projetos/game/engine/gamebase/include/spriterenderer.h
+	<glad/glad.h>
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<texture.h>
+	<shader.h>
+
+1563797576 /home/henrique/Projetos/game/engine/gamebase/include/sprite.h
+	<spriterenderer.h>
+	<vector>
+	<texture.h>
+	<resource_manager.h>
+
+1563797576 /home/henrique/Projetos/game/engine/gamebase/include/spriteutils.h
+	<vector>
+	<sprite.h>
+	<shader.h>
+
+1563808625 /home/henrique/Projetos/game/engine/gamebase/include/creature.h
+	<gameentity.h>
+	<vector2d.h>
+	<collisionbox.h>
+
+1563797576 /home/henrique/Projetos/game/engine/gamebase/include/gameentity.h
+	<entity.h>
+	<sprite.h>
+	<map>
+	<spriteanimation.h>
+
+1563797576 /home/henrique/Projetos/game/engine/gamebase/include/spriteanimation.h
+	<sprite.h>
+	<vector>
+
+1563808777 /home/henrique/Projetos/game/engine/gamebase/include/tile.h
+	<gameentity.h>
+
+1563797576 source:/home/henrique/Projetos/game/engine/gamebase/src/gameentity.cpp
+	"gameentity.h"
+
+1563465214 source:/home/henrique/Projetos/game/engine/gamebase/src/mathutil.cpp
+	<algorithm>
+	<mathutil.h>
+
+1563467435 source:/home/henrique/Projetos/game/engine/gamebase/src/resource_manager.cpp
+	<resource_manager.h>
+	<iostream>
+	<sstream>
+	<fstream>
+	<stb_image.h>
+
+1563214376 /home/henrique/Projetos/game/engine/gamebase/include/stb_image.h
+	"stb_image.h"
+	<stdio.h>
+	<stdlib.h>
+	<stdarg.h>
+	<stddef.h>
+	<stdlib.h>
+	<string.h>
+	<limits.h>
+	<math.h>
+	<stdio.h>
+	<assert.h>
+	<stdint.h>
+	<emmintrin.h>
+	<intrin.h>
+	<arm_neon.h>
+
+1563464664 source:/home/henrique/Projetos/game/engine/gamebase/src/shader.cpp
+	<shader.h>
+	<iostream>
+
+1563797576 source:/home/henrique/Projetos/game/engine/gamebase/src/sprite.cpp
+	<sprite.h>
+	<iostream>
+
+1563797576 source:/home/henrique/Projetos/game/engine/gamebase/src/spriteanimation.cpp
+	"spriteanimation.h"
+
+1563797576 source:/home/henrique/Projetos/game/engine/gamebase/src/spriterenderer.cpp
+	<spriterenderer.h>
+	<iostream>
+	<math.h>
+
+1563797576 source:/home/henrique/Projetos/game/engine/gamebase/src/spriteutils.cpp
+	"spriteutils.h"
+
+1563464741 source:/home/henrique/Projetos/game/engine/gamebase/src/stb_image.cpp
+	<stb_image.h>
+
+1563467278 source:/home/henrique/Projetos/game/engine/gamebase/src/texture.cpp
+	<iostream>
+	<texture.h>
+
+1563809124 source:/home/henrique/Projetos/game/engine/gamebase/src/tile.cpp
+	"tile.h"
+
+1563465263 source:/home/henrique/Projetos/game/engine/gamebase/src/vector2d.cpp
+	<vector2d.h>
+	<mathutil.h>
+	<stdexcept>
+	<sstream>
+
+1563463842 source:/home/henrique/Projetos/game/engine/gamebase/src/windowentity.cpp
+	"windowentity.h"
+
+1563463842 /home/henrique/Projetos/game/engine/gamebase/include/windowentity.h
+
+1563808660 source:/home/henrique/Projetos/game/engine/gamebase/src/creature.cpp
+	"creature.h"
+	<iostream>
+	<math.h>
+
+1563808518 source:/home/henrique/Projetos/game/engine/gamebase/src/entity.cpp
+	"entity.h"
 

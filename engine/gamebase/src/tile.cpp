@@ -13,6 +13,7 @@ Tile::~Tile()
 void Tile::update(float dt, float t)
 {
     this->getCurrentSpriteAnimation()->animate();
+    this->collisionBox.set(this->pos.x, this->pos.y);
 }
 
 void Tile::invert(bool invert)
@@ -23,4 +24,11 @@ void Tile::invert(bool invert)
 void Tile::draw()
 {
     this->getCurrentSpriteAnimation()->draw(getX(), getY(), getWidth(), getHeight(), 0.0f, this->invertSprite, 1.0f, 1.0f, 1.0f);
+    //this->collisionBox.draw();
+}
+
+void Tile::setCollisionBox(CollisionBox collisionBox)
+{
+    this->collisionBox = collisionBox;
+    this->collisionBox.init(ResourceManager::getShader("primitive"));
 }

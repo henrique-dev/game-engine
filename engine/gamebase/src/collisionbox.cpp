@@ -59,7 +59,7 @@ void CollisionBox::draw()
     this->shader.SetMatrix4("model2", model);
 
     // Render textured quad
-    this->shader.SetVector3f("spriteColor2", glm::vec3(1.0f, 1.0f, 1.0f));
+    this->shader.SetVector3f("spriteColor2", glm::vec3(1.0f, 0.0f, 0.0f));
 
     //glActiveTexture(GL_TEXTURE0);
 

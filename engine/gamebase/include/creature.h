@@ -36,7 +36,6 @@ class Creature : public GameEntity
         float jumpTime = 0;
         Vector2D speed = Vector2D(0,0);
         float gravity = 15.0f;
-        CollisionBox collisionBox;
 
 };
 
