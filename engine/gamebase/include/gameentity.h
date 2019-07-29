@@ -18,8 +18,12 @@ class GameEntity : protected Entity
         void setCurrentSpriteAnimation(std::string name);
         SpriteAnimation* getCurrentSpriteAnimation();
 
-        virtual float getX() const;
-        virtual float getY() const;
+        virtual void setX(float x);
+        virtual void setY(float y);
+
+        virtual glm::vec2 getPos() const;
+        virtual glm::vec2 getSize() const;
+        virtual CollisionBox getCollisionBox(std::string name);
 
     protected:
         bool invertSprite = false;

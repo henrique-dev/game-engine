@@ -5,23 +5,23 @@
 class CollisionBox
 {
     public:
-        CollisionBox(float x, float y, float width, float height);
+        CollisionBox(float x = 0, float y = 0, float width = 0, float height = 0);
         virtual ~CollisionBox();
 
         void init(Shader &shader);
         void draw();
 
-        void set(float x, float y);
-        float getX() const;
+        void setX(float x);
+        void setY(float y);
 
-    protected:
-        Shader shader;
-        glm::vec4 position;
+        glm::vec2 getPos() const;
+        glm::vec2 getSize() const;
 
     private:
-        float x, y, width, height;
         GLuint quadVAO;
         GLuint quadVAOi;
+        Shader shader;
+        glm::vec2 pos, size;
 
 };
 

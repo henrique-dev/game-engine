@@ -35,12 +35,27 @@ SpriteAnimation* GameEntity::getCurrentSpriteAnimation()
     return this->spritesAnimation[this->currentSpriteAnimation];
 }
 
-float GameEntity::getX() const
+void GameEntity::setX(float x)
 {
-    return this->pos.x;
+    this->pos.x = x;
 }
 
-float GameEntity::getY() const
+void GameEntity::setY(float y)
 {
-    return this->pos.y;
+    this->pos.y = y;
+}
+
+glm::vec2 GameEntity::getPos() const
+{
+    return this->pos;
+}
+
+glm::vec2 GameEntity::getSize() const
+{
+    return this->size;
+}
+
+CollisionBox GameEntity::getCollisionBox(std::string name)
+{
+    return this->collisionBox[name];
 }

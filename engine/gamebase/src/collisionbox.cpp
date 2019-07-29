@@ -2,9 +2,10 @@
 #include <iostream>
 #include <resource_manager.h>
 
-CollisionBox::CollisionBox(float x, float y, float width, float height) : x(x), y(y), width(width), height(height)
+CollisionBox::CollisionBox(float x, float y, float width, float height)
 {
-    //ctor
+    this->pos = glm::vec2(x,y);
+    this->size = glm::vec2(width, height);
 }
 
 CollisionBox::~CollisionBox()
@@ -48,13 +49,13 @@ void CollisionBox::draw()
     this->shader.Use();
     //glm::mat4 model;
     glm::mat4 model = glm::mat4(1.0f);
-    model = glm::translate(model, glm::vec3(this->x, this->y, 0.0f));  // First translate (transformations are: scale happens first, then rotation and then finall translation happens; reversed order)
+    model = glm::translate(model, glm::vec3(this->pos.x, this->pos.y, 0.0f));  // First translate (transformations are: scale happens first, then rotation and then finall translation happens; reversed order)
 
-    model = glm::translate(model, glm::vec3(0.5f * this->width, 0.5f * this->height, 0.0f)); // Move origin of rotation to center of quad
+    model = glm::translate(model, glm::vec3(0.5f * this->size.x, 0.5f * this->size.y, 0.0f)); // Move origin of rotation to center of quad
     model = glm::rotate(model, 0.0f, glm::vec3(0.0f, 0.0f, 1.0f)); // Then rotate
-    model = glm::translate(model, glm::vec3(-0.5f * this->width, -0.5f * this->height, 0.0f)); // Move origin back
+    model = glm::translate(model, glm::vec3(-0.5f * this->size.x, -0.5f * this->size.y, 0.0f)); // Move origin back
 
-    model = glm::scale(model, glm::vec3(this->width, this->height, 1.0f)); // Last scale
+    model = glm::scale(model, glm::vec3(this->size.x, this->size.y, 1.0f)); // Last scale
 
     this->shader.SetMatrix4("model2", model);
 
@@ -68,13 +69,22 @@ void CollisionBox::draw()
     glBindVertexArray(0);
 }
 
-void CollisionBox::set(float x, float y)
+void CollisionBox::setX(float x)
 {
-    this->x = x + this->width/2;
-    this->y = y + this->height/2;
+    this->pos.x = x;
 }
 
-float CollisionBox::getX() const
+void CollisionBox::setY(float y)
 {
-    return this->x;
+    this->pos.y = y;
+}
+
+glm::vec2 CollisionBox::getPos() const
+{
+    return this->pos;
+}
+
+glm::vec2 CollisionBox::getSize() const
+{
+    return this->size;
 }

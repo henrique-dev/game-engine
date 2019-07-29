@@ -1,17 +1,17 @@
 #include "entity.h"
 
-Entity::Entity(Entity& entity) : collisionBox(CollisionBox(0,0,0,0))
+Entity::Entity(Entity& entity)
 {
-    this->pos = Vector2D(entity.pos.x, entity.pos.y);
-    this->width = Vector2D(entity.width);
-    this->height = Vector2D(entity.height);
+    this->pos.x = entity.pos.x;
+    this->pos.y = entity.pos.y;
+    this->size.x = entity.size.x;
+    this->size.y = entity.size.y;
 }
 
-Entity::Entity(float x, float y, float width, float height) : collisionBox(CollisionBox(0,0,0,0))
+Entity::Entity(float x, float y, float width, float height)
 {
-    this->pos = Vector2D(x, y);
-    this->width = Vector2D(width, 0);
-    this->height = Vector2D(0, height);
+    this->pos = glm::vec2(x, y);
+    this->size = glm::vec2(width, height);
 }
 
 Entity::~Entity()
@@ -34,38 +34,13 @@ void Entity::setY(float y)
     this->pos.y = y;
 }
 
-void Entity::setWidth(float width)
+CollisionBox Entity::getCollisionBox(std::string name)
 {
-    this->width.x = width;
+    return this->collisionBox[name];
 }
 
-void Entity::setHeight(float height)
+void Entity::setCollisionBox(CollisionBox collisionBox, std::string name)
 {
-    this->height.y = height;
-}
-
-float Entity::getX() const
-{
-    return this->pos.x;
-}
-
-float Entity::getY() const
-{
-    return this->pos.y;
-}
-
-float Entity::getWidth() const
-{
-    return this->width.x;
-}
-
-float Entity::getHeight() const
-{
-    return this->height.y;
-}
-
-void Entity::setCollisionBox(CollisionBox collisionBox)
-{
-    this->collisionBox = collisionBox;
-    this->collisionBox.init(ResourceManager::getShader("primitive"));
+    this->collisionBox[name] = collisionBox;
+    this->collisionBox[name].init(ResourceManager::getShader("primitive"));
 }

@@ -15,6 +15,26 @@ std::vector<Creature*> * creatures;
 std::vector<Tile*> * tiles;
 Camera2D * camera;
 
+const int mapaWidth = 36;
+const int mapaHeigth = 17;
+int mapa[mapaHeigth][mapaWidth] =      {0, 0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0, 1,
+                                        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0, 1,
+                                        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0, 1, 0, 3, 1 ,1, 2, 0, 0, 0, 0, 0, 0, 1 ,0, 0, 0, 0, 0, 1,
+                                        0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1 ,0, 0, 0, 0, 1, 0, 0, 5, 0 ,0, 5, 0, 0, 0, 0, 0, 1, 1 ,1, 1, 0, 0, 1, 1,
+                                        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 1, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0, 0, 1, 1, 1 ,0, 1, 0, 0, 0, 1,
+                                        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0, 1, 1, 1, 1 ,0, 1, 0, 0, 0, 1,
+                                        0, 0, 0, 0, 0, 0, 0, 3, 2, 0, 0, 0 ,0, 1, 1, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 1, 1, 1, 1, 1 ,0, 1, 1, 0, 0, 1,
+                                        1, 1, 1, 1, 1, 1, 1, 4, 4, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1 ,1, 1, 1, 1, 1, 1, 1, 1, 1 ,0, 1, 0, 0, 0, 1,
+                                        0, 0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 1, 0, 0, 0, 1,
+                                        0, 0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 1, 0, 0, 1, 1,
+                                        0, 0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 1, 0, 0, 0, 1,
+                                        0, 0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 1, 0, 0, 0, 1,
+                                        0, 0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 1, 1, 0, 0, 1,
+                                        0, 0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0, 1,
+                                        0, 0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 1, 1,
+                                        0, 0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0, 1,
+                                        0, 0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 1, 1, 1, 1, 1 ,1, 1, 1, 1, 1, 1,};
+
 Game::Game(GLuint width, GLuint height)
 	: State(GAME_ACTIVE), Keys(), width(width), height(height)
 {
@@ -53,11 +73,16 @@ void Game::Init()
     // Set render-specific controls
     creatures = new std::vector<Creature*>;
 
-    camera = new Camera2D(0, 0, 0, 0, 0, 0, ResourceManager::getShader("sprite"));
-
     Shader spriteShader = ResourceManager::getShader("sprite");
 
-    Creature * creature = new Creature(300, -400, 200, 300, "idle");
+    Creature * creature = new Creature(300, -400, 300, 300, "idle");
+    //creature->setCollisionBox(CollisionBox(0, -400, 75, 190));
+    creature->setCollisionBox(CollisionBox(0, -400, 75, 190), "base");
+
+    camera = new Camera2D(0, 0, 0, 0, 0, 0, ResourceManager::getShader("sprite"));
+    camera->setTarget(creature);
+
+
     SpriteAnimation * sa;
 
     sa = new SpriteAnimation(
@@ -74,30 +99,43 @@ void Game::Init()
     sa = new SpriteAnimation(SpriteUtils::generateSpriteFromTexture(spriteShader, ResourceManager::getTexture("falling"), 1, 1, 0, 1), 1);
     creature->setSpritesAnimation("falling", sa);
 
-    creature->setCollisionBox(CollisionBox(0, 0, 80, 200));
-
     creatures->push_back(creature);
 
-    sa = new SpriteAnimation(SpriteUtils::generateSpriteFromTexture(spriteShader, ResourceManager::getTexture("tiles"), 1, 1, 0, 1), 10);
+    SpriteAnimation * stile = new SpriteAnimation(SpriteUtils::generateSpriteFromTexture(spriteShader, ResourceManager::getTexture("tiles"), 1, 1, 0, 1), 10);
+
     tiles = new std::vector<Tile*>;
-    for (int i=0; i<10; i++)
+    for (int i=0; i<mapaHeigth; i++)
     {
-        Tile * tile = new Tile(i * 100, 520, 100, 100, "tiles");
-        tile->setCollisionBox(CollisionBox(0, 0, 100, 100));
-        tile->setSpritesAnimation("tiles", sa);
-        tiles->push_back(tile);
+        for (int j=0; j<mapaWidth; j++)
+        {
+            if (mapa[i][j] != 0)
+            {
+                Tile * tile = new Tile(j * 100, i * 100, 100, 100, "tiles1");
+                //tile->setCollisionBox(CollisionBox(0, 0, 100, 100));
+                tile->setCollisionBox(CollisionBox(0, 0, 100, 100));
+                tile->setSpritesAnimation("tiles1", stile);
+                tiles->push_back(tile);
+            }
+        }
     }
 }
+
+bool teste = false;
 
 void Game::update(GLfloat dt, GLfloat t)
 {
     for (Creature * c : *creatures)
     {
-        if (c->checkGroundCollision(0, 520, 0)) {
-            if (c->getCurrentState() == JUMPING || c->getCurrentState() == FALLING)
-            {
-                c->setCurrentState(IDLE);
-            }
+        bool canFall = true;
+        for (Tile * tile : *tiles)
+        {
+
+        }
+        if (c->getCurrentState() != JUMPING && c->getCurrentState() != FALLING && canFall)
+        {
+            c->setCurrentState(FALLING);
+            c->move(0, 0);
+            c->jump(glfwGetTime(), 0);
         }
         c->update(dt, t);
     }
@@ -106,6 +144,8 @@ void Game::update(GLfloat dt, GLfloat t)
     {
         tile->update(dt, t);
     }
+
+    camera->update();
 }
 
 
@@ -116,7 +156,7 @@ void Game::processInput(GLfloat dt)
         for (Creature * c : *creatures)
         {
             c->move(5, 0);
-            camera->move(-5, 0);
+            //camera->move(-5, 0);
             if (c->getCurrentState() != JUMPING && c->getCurrentState() != FALLING) c->setCurrentState(RUNNING);
         }
     }
@@ -125,7 +165,7 @@ void Game::processInput(GLfloat dt)
         for (Creature * c : *creatures)
         {
             c->move(-5, 0);
-            camera->move(5, 0);
+            //camera->move(5, 0);
             if (c->getCurrentState() != JUMPING && c->getCurrentState() != FALLING) c->setCurrentState(RUNNING);
         }
     }
@@ -140,9 +180,10 @@ void Game::processInput(GLfloat dt)
     {
         for (Creature * c : *creatures)
         {
-            if (c->getCurrentState() != JUMPING)
+            if ((c->getCurrentState() == IDLE || c->getCurrentState() == RUNNING) && c->getCurrentState() != JUMPING)
             {
-                c->jump(glfwGetTime(), -50);
+                c->jump(glfwGetTime(), -70);
+                c->move(0, 20);
                 c->setCurrentState(JUMPING);
             }
         }
@@ -161,4 +202,13 @@ void Game::render()
     {
         t->draw();
     }
+}
+
+bool checkCollision(CollisionBox box1, CollisionBox box2)
+{
+    bool collisionX = box1.getPos().x + box1.getSize().x >= box2.getPos().x
+        && box2.getPos().x + box2.getSize().x >= box1.getPos().x;
+    bool collisionY = box1.getPos().y + box1.getSize().y >= box2.getPos().y
+        && box2.getPos().y + box2.getSize().y >= box1.getPos().x;
+    return collisionX && collisionY;
 }

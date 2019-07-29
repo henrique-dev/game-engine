@@ -13,24 +13,19 @@ class Entity
         Entity(Entity& entity);
         virtual ~Entity();
 
-        virtual void setX(float x);
-        virtual void setY(float y);
-        virtual void setWidth(float width);
-        virtual void setHeight(float height);
-
-        virtual float getX() const;
-        virtual float getY() const;
-        virtual float getWidth() const;
-        virtual float getHeight() const;
-
         virtual void update(float dt, float t);
 
-        virtual void setCollisionBox(CollisionBox collisionBox);
+        void setCollisionBox(CollisionBox collisionBox, std::string name);
+        virtual void setX(float x);
+        virtual void setY(float y);
+
+        CollisionBox getCollisionBox(std::string name);
+        glm::vec2 getPos() const;
+        glm::vec2 getSize() const;
 
     protected:
-        Vector2D pos, width, height;
-        CollisionBox collisionBox;
-    private:
+        glm::vec2 pos, size;
+        std::map<std::string, CollisionBox> collisionBox = std::map<std::string, CollisionBox>();
 
 };
 

@@ -12,6 +12,8 @@ class Tile : public GameEntity
         void update(float dt, float t);
         void invert(bool invert);
 
+        bool debug = false;
+
         virtual void setCollisionBox(CollisionBox collisionBox);
 
     protected:
