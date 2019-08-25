@@ -19,6 +19,7 @@ public class Sprite {
     private String name;
     private Rectangle rectangle;
     private Rectangle rectangleToDraw;
+    private Color color;
 
     public String getTexture() {
         return texture;
@@ -51,9 +52,17 @@ public class Sprite {
     public void setRectangleToDraw(Rectangle rectangleToDraw) {
         this.rectangleToDraw = rectangleToDraw;
     }
-    
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
     public void draw(Graphics2D g) {
-        g.setColor(new Color(0, 150, 0, 100));
+        g.setColor(this.color);
         g.fillRect(this.rectangleToDraw.x, this.rectangleToDraw.y, this.rectangleToDraw.width, this.rectangleToDraw.height);
     }
 

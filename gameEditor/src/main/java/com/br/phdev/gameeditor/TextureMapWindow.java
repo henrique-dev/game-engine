@@ -19,6 +19,7 @@ import java.awt.image.DataBufferByte;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -55,7 +56,7 @@ public class TextureMapWindow extends javax.swing.JFrame {
     private void centerWindow() {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-        
+
         DefaultTableModel tableModel = new DefaultTableModel();
         tableModel.setColumnIdentifiers(new String[]{"Nome", "x", "y", "largura", "altura"});
         jTable1.setModel(tableModel);
@@ -93,7 +94,7 @@ public class TextureMapWindow extends javax.swing.JFrame {
         for (ImageUpdate iu : this.imageUpdatesGrid) {
             iu.draw(imageFrame);
         }
-        
+
         DefaultTableModel tableModel = new DefaultTableModel();
         tableModel.setColumnIdentifiers(new String[]{"Nome", "x", "y", "largura", "altura"});
 
@@ -105,12 +106,11 @@ public class TextureMapWindow extends javax.swing.JFrame {
                     (int) ((float) (this.resizedImage.getHeight() / (float) this.originalImage.getHeight()) * s.getRectangle().height));
             s.setRectangleToDraw(rect);
             s.draw(imageFrame);
-            tableModel.addRow(new String[]{"sem_nome", String.valueOf(s.getRectangle().x), String.valueOf(s.getRectangle().y), 
+            tableModel.addRow(new String[]{"sem_nome", String.valueOf(s.getRectangle().x), String.valueOf(s.getRectangle().y),
                 String.valueOf(s.getRectangle().width), String.valueOf(s.getRectangle().height)});
         }
-        
+
         jTable1.setModel(tableModel);
-        
 
         ImageIcon image = new ImageIcon(this.resizedImage);
         this.label_image.setIcon(image);
@@ -178,7 +178,7 @@ public class TextureMapWindow extends javax.swing.JFrame {
                     for (List<Rectangle> lr : rectList) {
                         for (Rectangle r : lr) {
                             Rectangle recExp = new Rectangle(rect.x - 1, rect.y - 1, rect.width + 2, rect.height + 2);
-                            if (recExp.intersects(r)) {
+                            if (r.intersects(recExp)) {
                                 intersect = true;
                                 break;
                             }
@@ -198,7 +198,8 @@ public class TextureMapWindow extends javax.swing.JFrame {
             }
         }
 
-        this.sprites.clear();
+        this.sprites.clear();        
+        
         for (List<Rectangle> lr : rectList) {
             int left = 0, top = 0, right = 0, bottom = 0;
             boolean first = true;
@@ -225,7 +226,30 @@ public class TextureMapWindow extends javax.swing.JFrame {
             }
             Sprite sprite = new Sprite();
             sprite.setRectangle(new Rectangle(left, top, right - left, bottom - top));
+            Random rand = new Random();
+            sprite.setColor(new Color(rand.nextInt(250), rand.nextInt(250), rand.nextInt(250), 150));
             sprites.add(sprite);
+        }
+        
+        for (int i=0; i<sprites.size(); i++) { 
+            Rectangle a = sprites.get(i).getRectangle();
+            for (int j=i+1; j<sprites.size(); j++) {
+                Rectangle b = sprites.get(j).getRectangle();
+                if (a.getWidth() * a.getHeight() > b.getWidth() * b.getHeight()) {
+                    if (a.intersects(b)) {
+                        sprites.remove(j);
+                        j--;
+                        System.out.println("HERE2");
+                    }
+                } else {
+                    if (b.intersects(a)) {
+                        sprites.remove(j);
+                        j--;
+                        System.out.println("HERE2");
+                    }
+                }
+                
+            }            
         }
 
     }
@@ -252,11 +276,17 @@ public class TextureMapWindow extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        textField_rows = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        textField_cols = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
+        jPanel9 = new javax.swing.JPanel();
+        jButton6 = new javax.swing.JButton();
+        textField_rows = new javax.swing.JTextField();
+        jButton5 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        textField_cols = new javax.swing.JTextField();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
         jSplitPane2 = new javax.swing.JSplitPane();
         jPanel5 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -282,11 +312,7 @@ public class TextureMapWindow extends javax.swing.JFrame {
 
         jLabel1.setText("Quantidade de linhas:");
 
-        textField_rows.setText("2");
-
         jLabel2.setText("Quantidade de colunas:");
-
-        textField_cols.setText("24");
 
         jButton2.setText("Gerar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -297,6 +323,48 @@ public class TextureMapWindow extends javax.swing.JFrame {
 
         jCheckBox1.setText("Quadradondar");
 
+        jPanel9.setLayout(new java.awt.BorderLayout());
+
+        jButton6.setText("+");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel9.add(jButton6, java.awt.BorderLayout.LINE_END);
+
+        textField_rows.setText("2");
+        jPanel9.add(textField_rows, java.awt.BorderLayout.CENTER);
+
+        jButton5.setText("-");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel9.add(jButton5, java.awt.BorderLayout.LINE_START);
+
+        jPanel1.setLayout(new java.awt.BorderLayout());
+
+        textField_cols.setText("24");
+        jPanel1.add(textField_cols, java.awt.BorderLayout.CENTER);
+
+        jButton7.setText("-");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton7, java.awt.BorderLayout.LINE_START);
+
+        jButton8.setText("+");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton8, java.awt.BorderLayout.LINE_END);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -304,12 +372,12 @@ public class TextureMapWindow extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textField_rows)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textField_cols)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jCheckBox1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jCheckBox1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -318,16 +386,16 @@ public class TextureMapWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textField_rows, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textField_cols, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(7, 7, 7)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jCheckBox1)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
-                .addContainerGap(289, Short.MAX_VALUE))
+                .addContainerGap(276, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -599,6 +667,58 @@ public class TextureMapWindow extends javax.swing.JFrame {
         menu.show(label_image, evt.getX(), evt.getY());
     }//GEN-LAST:event_label_imageMouseClicked
 
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        int tmpRows = Integer.parseInt(textField_rows.getText()) + 1;
+        while (this.resizedImage.getHeight() % tmpRows != 0) {
+            if (tmpRows > this.resizedImage.getHeight()) {
+                break;
+            }
+            tmpRows++;
+        }
+        textField_rows.setText(String.valueOf(tmpRows));
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        int tmpCols = Integer.parseInt(textField_cols.getText()) + 1;
+        while (this.resizedImage.getWidth() % tmpCols != 0) {
+            if (tmpCols > this.resizedImage.getWidth()) {
+                break;
+            }
+            tmpCols++;
+        }
+        textField_cols.setText(String.valueOf(tmpCols));
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        int tmpRows = Integer.parseInt(textField_rows.getText()) - 1;
+        if (tmpRows == 0) {
+            tmpRows = 1;
+        }
+        while (this.resizedImage.getHeight() % tmpRows != 0) {
+            if (tmpRows < 2) {
+                tmpRows = 1;
+                break;
+            }
+            tmpRows--;
+        }
+        textField_rows.setText(String.valueOf(tmpRows));
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        int tmpCols = Integer.parseInt(textField_cols.getText()) - 1;
+        if (tmpCols == 0) {
+            tmpCols = 1;
+        }
+        while (this.resizedImage.getWidth() % tmpCols != 0) {
+            if (tmpCols < 2) {
+                tmpCols = 1;
+                break;
+            }
+            tmpCols--;
+        }
+        textField_cols.setText(String.valueOf(tmpCols));
+    }//GEN-LAST:event_jButton7ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -639,9 +759,14 @@ public class TextureMapWindow extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -649,6 +774,7 @@ public class TextureMapWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSplitPane jSplitPane1;
