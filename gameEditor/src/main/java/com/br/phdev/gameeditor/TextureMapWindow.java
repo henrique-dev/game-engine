@@ -10,19 +10,32 @@ import com.br.phdev.gameeditor.filepick.ImageFilter;
 import com.br.phdev.gameeditor.filepick.ImagePreview;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.table.DefaultTableModel;
 
@@ -41,6 +54,10 @@ public class TextureMapWindow extends javax.swing.JFrame {
     private float zoom = 1;
     private int rows = 1, cols = 1;
     private List<Sprite> sprites;
+
+    private JPopupMenu menu;
+
+    private Sprite spriteAtual;
 
     /**
      * Creates new form TextureMapWindow
@@ -71,6 +88,19 @@ public class TextureMapWindow extends javax.swing.JFrame {
         return resized;
     }
 
+    private void atualizarTabela() {
+        reloadImage();
+        DefaultTableModel tableModel = new DefaultTableModel();
+        tableModel.setColumnIdentifiers(new String[]{"Nome", "x", "y", "largura", "altura"});
+
+        for (Sprite s : sprites) {
+            tableModel.addRow(new String[]{s.getName(), String.valueOf(s.getArea().x), String.valueOf(s.getArea().y),
+                String.valueOf(s.getArea().width), String.valueOf(s.getArea().height)});
+        }
+
+        jTable1.setModel(tableModel);
+    }
+
     private void reloadImage() {
         this.label_image.setIcon(null);
         this.resizedImage = resize(this.originalImage, (int) (this.originalImage.getWidth() * zoom), (int) (this.originalImage.getHeight() * zoom));
@@ -84,174 +114,28 @@ public class TextureMapWindow extends javax.swing.JFrame {
             for (int i = 0; i < rows; i++) {
                 for (int j = 0; j < cols; j++) {
                     Rectangle rectangle = new Rectangle(j * divW, i * divH, divW, divH);
-                    this.imageUpdatesGrid.add(new ImageUpdate(rectangle, color));
+                    ImageUpdate iu = new ImageUpdate(rectangle, color);
+                    iu.draw(imageFrame);
+                    this.imageUpdatesGrid.add(iu);
                 }
             }
+            for (Sprite s : sprites) {
+                System.out.println(this.originalImage.getWidth() + " - " + originalImage.getHeight());
+                System.out.println(s.getArea());
+                System.out.println(this.resizedImage.getWidth() + " - " + resizedImage.getHeight());
+                Rectangle rect = new Rectangle(
+                        (int) ((float)s.getArea().x / (float)this.originalImage.getWidth() * (float)resizedImage.getWidth()),
+                        (int) ((float)s.getArea().y / (float)this.originalImage.getHeight()* (float)resizedImage.getHeight()),
+                        (int) ((float)s.getArea().width / (float)this.originalImage.getWidth() * (float)resizedImage.getWidth()),
+                        (int) ((float)s.getArea().height / (float)this.originalImage.getHeight() * (float)resizedImage.getHeight()));
+                System.out.println(rect);
+                s.setRectangleToDraw(rect);
+                s.draw(imageFrame);
+            }
         }
-
-        analisyImageForSprites();
-
-        for (ImageUpdate iu : this.imageUpdatesGrid) {
-            iu.draw(imageFrame);
-        }
-
-        DefaultTableModel tableModel = new DefaultTableModel();
-        tableModel.setColumnIdentifiers(new String[]{"Nome", "x", "y", "largura", "altura"});
-
-        for (Sprite s : sprites) {
-            Rectangle rect = new Rectangle(
-                    (int) (((float) this.resizedImage.getWidth() / (float) this.originalImage.getWidth()) * s.getRectangle().x),
-                    (int) ((float) (this.resizedImage.getHeight() / (float) this.originalImage.getHeight()) * s.getRectangle().y),
-                    (int) ((float) (this.resizedImage.getWidth() / (float) this.originalImage.getWidth()) * s.getRectangle().width),
-                    (int) ((float) (this.resizedImage.getHeight() / (float) this.originalImage.getHeight()) * s.getRectangle().height));
-            s.setRectangleToDraw(rect);
-            s.draw(imageFrame);
-            tableModel.addRow(new String[]{"sem_nome", String.valueOf(s.getRectangle().x), String.valueOf(s.getRectangle().y),
-                String.valueOf(s.getRectangle().width), String.valueOf(s.getRectangle().height)});
-        }
-
-        jTable1.setModel(tableModel);
 
         ImageIcon image = new ImageIcon(this.resizedImage);
         this.label_image.setIcon(image);
-    }
-
-    private void analisyImageForSprites() {
-
-        final byte[] pixels = ((DataBufferByte) this.originalImage.getRaster().getDataBuffer()).getData();
-        final int width = this.originalImage.getWidth();
-        final int height = this.originalImage.getHeight();
-        final boolean hasAlphaChannel = this.originalImage.getAlphaRaster() != null;
-
-        int[][] imageRGB = new int[height][width];
-        if (hasAlphaChannel) {
-            final int pixelLength = 4;
-            for (int pixel = 0, row = 0, col = 0; pixel + 3 < pixels.length; pixel += pixelLength) {
-                int argb = 0;
-                argb += (((int) pixels[pixel] & 0xff) << 24); // alpha
-                argb += ((int) pixels[pixel + 1] & 0xff); // blue
-                argb += (((int) pixels[pixel + 2] & 0xff) << 8); // green
-                argb += (((int) pixels[pixel + 3] & 0xff) << 16); // red
-                imageRGB[row][col] = argb;
-                col++;
-                if (col == width) {
-                    col = 0;
-                    row++;
-                }
-            }
-        } else {
-            final int pixelLength = 3;
-            for (int pixel = 0, row = 0, col = 0; pixel + 2 < pixels.length; pixel += pixelLength) {
-                int argb = 0;
-                argb += -16777216; // 255 alpha
-                argb += ((int) pixels[pixel] & 0xff); // blue
-                argb += (((int) pixels[pixel + 1] & 0xff) << 8); // green
-                argb += (((int) pixels[pixel + 2] & 0xff) << 16); // red
-                imageRGB[row][col] = argb;
-                col++;
-                if (col == width) {
-                    col = 0;
-                    row++;
-                }
-            }
-        }
-
-        List<List<Rectangle>> rectList = new ArrayList<>();
-        for (ImageUpdate iu : this.imageUpdatesGrid) {
-            Rectangle rect = new Rectangle(
-                    (int) (((float) this.originalImage.getWidth() / (float) this.resizedImage.getWidth()) * iu.getRect().x),
-                    (int) ((float) (this.originalImage.getHeight() / (float) this.resizedImage.getHeight()) * iu.getRect().y),
-                    (int) ((float) (this.originalImage.getWidth() / (float) this.resizedImage.getWidth()) * iu.getRect().width),
-                    (int) ((float) (this.originalImage.getHeight() / (float) this.resizedImage.getHeight()) * iu.getRect().height));
-
-            for (int i = rect.y; i < rect.y + rect.height; i++) {
-                int rgb = 0;
-                for (int j = rect.x; j < rect.x + rect.width; j++) {
-                    rgb = imageRGB[i][j];
-                    if (rgb != 0) {
-                        break;
-                    }
-                }
-                if (rgb != 0) {
-                    iu.setFill(true);
-                    boolean intersect = false;
-                    for (List<Rectangle> lr : rectList) {
-                        for (Rectangle r : lr) {
-                            Rectangle recExp = new Rectangle(rect.x - 1, rect.y - 1, rect.width + 2, rect.height + 2);
-                            if (r.intersects(recExp)) {
-                                intersect = true;
-                                break;
-                            }
-                        }
-                        if (intersect) {
-                            lr.add(rect);
-                            break;
-                        }
-                    }
-                    if (!intersect) {
-                        List<Rectangle> recs = new ArrayList<>();
-                        recs.add(rect);
-                        rectList.add(recs);
-                    }
-                    break;
-                }
-            }
-        }
-
-        this.sprites.clear();        
-        
-        for (List<Rectangle> lr : rectList) {
-            int left = 0, top = 0, right = 0, bottom = 0;
-            boolean first = true;
-            for (Rectangle r : lr) {
-                if (first) {
-                    left = r.x;
-                    top = r.y;
-                    right = r.x + r.width;
-                    bottom = r.y + r.height;
-                    first = false;
-                }
-                if (r.x < left) {
-                    left = r.x;
-                }
-                if (r.y < top) {
-                    top = r.y;
-                }
-                if (r.x + r.width > right) {
-                    right = r.x + r.width;
-                }
-                if (r.y + r.height > bottom) {
-                    bottom = r.y + r.height;
-                }
-            }
-            Sprite sprite = new Sprite();
-            sprite.setRectangle(new Rectangle(left, top, right - left, bottom - top));
-            Random rand = new Random();
-            sprite.setColor(new Color(rand.nextInt(250), rand.nextInt(250), rand.nextInt(250), 150));
-            sprites.add(sprite);
-        }
-        
-        for (int i=0; i<sprites.size(); i++) { 
-            Rectangle a = sprites.get(i).getRectangle();
-            for (int j=i+1; j<sprites.size(); j++) {
-                Rectangle b = sprites.get(j).getRectangle();
-                if (a.getWidth() * a.getHeight() > b.getWidth() * b.getHeight()) {
-                    if (a.intersects(b)) {
-                        sprites.remove(j);
-                        j--;
-                        System.out.println("HERE2");
-                    }
-                } else {
-                    if (b.intersects(a)) {
-                        sprites.remove(j);
-                        j--;
-                        System.out.println("HERE2");
-                    }
-                }
-                
-            }            
-        }
-
     }
 
     Dimension getScaledDimension(Dimension imageSize, Dimension boundary) {
@@ -298,6 +182,7 @@ public class TextureMapWindow extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jButton9 = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
 
@@ -528,20 +413,31 @@ public class TextureMapWindow extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(jTable1);
 
+        jButton9.setText("Exportar");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
+                    .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
+                .addComponent(jScrollPane2)
+                .addGap(18, 18, 18)
+                .addComponent(jButton9)
                 .addContainerGap())
         );
 
@@ -649,22 +545,66 @@ public class TextureMapWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        this.zoom += 0.5;
+        this.zoom += 1;
         reloadImage();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        this.zoom -= 0.5;
+        this.zoom -= 1;
         reloadImage();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void label_imageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_imageMouseClicked
-        JPopupMenu menu = new JPopupMenu();
-        menu.add("A");
-        menu.add("B");
-        menu.add("C");
-        System.out.println(evt.getX() + " - " + evt.getY());
-        menu.show(label_image, evt.getX(), evt.getY());
+
+        float labelWL = ((float) label_image.getSize().getWidth() / 2 - (float) resizedImage.getWidth() / 2);
+        float x = (float) evt.getX() - labelWL;
+        float labelHL = ((float) label_image.getSize().getHeight() / 2 - (float) resizedImage.getHeight() / 2);
+        float y = (float) evt.getY() - labelHL;
+        for (ImageUpdate iu : this.imageUpdatesGrid) {
+            if (iu.getRect().contains(x, y)) {
+                if (spriteAtual == null) {
+                    menu = new JPopupMenu();
+                    JMenuItem itemNovo = new JMenuItem("Novo sprite - Pos I");
+                    itemNovo.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            spriteAtual = new Sprite();
+                            spriteAtual.getArea().x = iu.getRect().x;
+                            spriteAtual.getArea().y = iu.getRect().y;
+                            iu.setFill(true);
+                            iu.draw(imageFrame);
+                            repaint();
+
+                            menu = new JPopupMenu();
+                            JMenuItem itemSalvar = new JMenuItem("Salvar sprite - Pos F");
+                            itemSalvar.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    spriteAtual.setName(JOptionPane.showInputDialog(TextureMapWindow.this, "Insira o nome para o sprite", "Nome do sprite", JOptionPane.PLAIN_MESSAGE));
+                                    sprites.add(spriteAtual);
+                                    spriteAtual = null;
+                                    atualizarTabela();
+                                }
+                            });
+                            menu.add(itemSalvar);
+                        }
+                    });
+                    menu.add(itemNovo);
+                } else {
+                    spriteAtual.getArea().width = iu.getRect().x + iu.getRect().width - spriteAtual.getArea().x;
+                    spriteAtual.getArea().height = iu.getRect().y + iu.getRect().height - spriteAtual.getArea().y;
+                    spriteAtual.getArea().x = (int)((float)spriteAtual.getArea().x / (float)resizedImage.getWidth() * this.originalImage.getWidth());
+                    spriteAtual.getArea().y = (int)((float)spriteAtual.getArea().y / (float)resizedImage.getHeight()* this.originalImage.getHeight());
+                    spriteAtual.getArea().width = (int)((float)spriteAtual.getArea().width / (float)resizedImage.getWidth() * this.originalImage.getWidth());
+                    spriteAtual.getArea().height = (int)((float)spriteAtual.getArea().height / (float)resizedImage.getHeight() * this.originalImage.getHeight());
+                    
+                    iu.setFill(true);
+                    iu.draw(imageFrame);
+                    repaint();
+                }
+                menu.show(label_image, evt.getX(), evt.getY());
+            }
+        }        
     }//GEN-LAST:event_label_imageMouseClicked
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -719,6 +659,19 @@ public class TextureMapWindow extends javax.swing.JFrame {
         textField_cols.setText(String.valueOf(tmpCols));
     }//GEN-LAST:event_jButton7ActionPerformed
 
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        String fileName = JOptionPane.showInputDialog(TextureMapWindow.this, "Insira o nome para o arquivo a ser salvo", "Nome do arquivo", JOptionPane.PLAIN_MESSAGE);
+        File file = new File(fileImage.getParent() + "/" + fileName);        
+        try (FileWriter fw = new FileWriter(file)){
+            fw.write("teste");
+            fw.flush();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton9ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -763,6 +716,7 @@ public class TextureMapWindow extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

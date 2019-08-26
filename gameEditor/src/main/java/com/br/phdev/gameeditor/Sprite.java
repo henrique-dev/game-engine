@@ -8,6 +8,8 @@ package com.br.phdev.gameeditor;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -17,9 +19,13 @@ public class Sprite {
 
     private String texture;
     private String name;
-    private Rectangle rectangle;
+    private Rectangle area;
     private Rectangle rectangleToDraw;
     private Color color;
+
+    public Sprite() {
+        this.area = new Rectangle();
+    }
 
     public String getTexture() {
         return texture;
@@ -37,12 +43,12 @@ public class Sprite {
         this.name = name;
     }
 
-    public Rectangle getRectangle() {
-        return rectangle;
+    public Rectangle getArea() {
+        return area;
     }
 
-    public void setRectangle(Rectangle rectangle) {
-        this.rectangle = rectangle;
+    public void setArea(Rectangle area) {
+        this.area = area;
     }
 
     public Rectangle getRectangleToDraw() {
